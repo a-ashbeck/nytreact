@@ -9,9 +9,10 @@ var SearchBar = React.createClassName({
     },
     // This function will respond to the user input
     handleChange: function(event) {
-
-        this.setState({ term: event.target.value });
-
+        // Here we create syntax to capture any change in text to the query terms (pre-search).
+        var newState = {};
+        newState[event.target.id] = event.target.value;
+        this.setState(newState);
     },
     // When a user submits...
     handleSubmit: function(event) {
@@ -21,7 +22,10 @@ var SearchBar = React.createClassName({
 
         // Set the parent to have the search term
         this.props.setTerm(this.state.term);
-        this.setState({ term: "" });
+        this.props.setNumRecordsSelect(this.state.numRecordsSelect);
+        this.props.setStartYear(this.state.startYear);
+        this.props.setEndYear(this.state.endYear);
+        this.setState({ term: "", numRecordsSelect: 0, startYear: "", endYear: "" });
   },
     render: function () {
         return (
@@ -31,7 +35,7 @@ var SearchBar = React.createClassName({
                     <br />
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title"><strong><i className="fa  fa-list-alt"></i> Search Parameters</strong></h3>
+                                <h3 className="panel-title"><strong><i className="fa fa-list-alt"></i> Search Parameters</strong></h3>
                             </div>
                             <div className="panel-body">
 

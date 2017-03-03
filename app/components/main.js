@@ -56,7 +56,18 @@ var Main = React.createClass({
     setTerm: function(term) {
         this.setState({ setTerm: term });
     },
-
+    // This function allows childrens to update the parent.
+    setNumRecordsSelect: function(numRecordsSelect) {
+        this.setState({ setNumRecordsSelect: numRecordsSelect });
+    },
+    // This function allows childrens to update the parent.
+    setStartYear: function(startYear) {
+        this.setState({ setStartYear: startYear });
+    },
+    // This function allows childrens to update the parent.
+    setEndYear: function(endYear) {
+        this.setState({ setEndYear: endYear });
+    },
     render: function() {
         return ( 
             <div>
@@ -64,7 +75,12 @@ var Main = React.createClass({
                     <div className="jumbotron" style="background-color: #20315A ; color: white;" >
                         <h1 className="text-center" > <strong > <i className="fa fa-newspaper-o" > </i> New York Times Search</strong></h1>
                     </div>
-                    <SearchBar setTerm={ this.setTerm }/> 
+                    <SearchBar
+                        setTerm={ this.setTerm }
+                        setNumRecordsSelect={this.setNumRecordsSelect}
+                        setStartYear={this.setStartYear}
+                        setEndYear={this.setEndYear}
+                    /> 
                     <Results results={ this.state.results }/> 
                     <SavedArticles savedArticles={ this.state.savedArticles }/> 
                 </div>
