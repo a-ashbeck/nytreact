@@ -10,19 +10,19 @@ var helpers = require("./utils/helpers");
 var Main = React.createClass({
 
     // Here we set a generic state associated with the number of clicks
-    // Note how we added in this history state variable
+    // Note how we added in this articles state variable
     getInitialState: function() {
-        return { searchTerm: "", results: "", history: [] };
+        return { searchTerm: "", results: "", articles: [] };
     },
 
-    // The moment the page renders get the History
+    // The moment the page renders get the Articles
     componentDidMount: function() {
-        // Get the latest history.
+        // Get the latest articles.
         helpers.getSavedArticles().then(function(response) {
             console.log(response);
-            if (response !== this.state.history) {
-                console.log("History", response.data);
-                this.setState({ history: response.data });
+            if (response !== this.state.articles) {
+                console.log("Articles", response.data);
+                this.setState({ articles: response.data });
             }
         }.bind(this));
     },
@@ -33,20 +33,19 @@ var Main = React.createClass({
         // Run the query for the address
         helpers.runQuery(this.state.searchTerm).then(function(data) {
             if (data !== this.state.results) {
-                console.log("Address", data);
+                console.log("Article", data);
                 this.setState({ results: data });
 
-                // After we've received the result... then post the search term to our history.
+                // THIS AUTSAVES ARTICLES. CHANGE LATER!!!!
+                // After we've received the result... then post the search term to our articles.
                 helpers.postArticle(this.state.searchTerm).then(function() {
                     console.log("Updated!");
 
-                    // After we've done the post... then get the updated history
+                    // After we've done the post... then get the updated articles
                     helpers.getSavedArticles().then(function(response) {
-                        console.log("Current History", response.data);
+                        console.log("Current Articles", response.data);
 
-                        console.log("History", response.data);
-
-                        this.setState({ history: response.data });
+                        this.setState({ articles: response.data });
 
                     }.bind(this));
                 }.bind(this));
@@ -54,8 +53,8 @@ var Main = React.createClass({
         }.bind(this));
     },
     // This function allows childrens to update the parent.
-    setForm: function(form) {
-        this.setState({ searchForm: form });
+    setTerm: function(term) {
+        this.setState({ setTerm: term });
     },
 
     render: function() {
@@ -65,7 +64,7 @@ var Main = React.createClass({
                     <div className="jumbotron" style="background-color: #20315A ; color: white;" >
                         <h1 className="text-center" > <strong > <i className="fa fa-newspaper-o" > </i> New York Times Search</strong></h1>
                     </div>
-                    <SearchBar setForm={ this.state.searchBar }/> 
+                    <SearchBar setForm={ this.setForm }/> 
                     <Results results={ this.state.results }/> 
                     <SavedArticles savedArticles={ this.state.savedArticles }/> 
                 </div>
