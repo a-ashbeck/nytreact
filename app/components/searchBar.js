@@ -3,7 +3,6 @@ var React = require("react");
 
 var SearchBar = React.createClassName({
     render: function () {
-
         return (
             <div>
                 <div className="row">
@@ -19,7 +18,7 @@ var SearchBar = React.createClassName({
 
                                     <div className="form-group">
                                         <label for="search">Search Term:</label>
-                                        <input type="text" className="form-control" id="searchTerm">
+                                        <input type="text" className="form-control" id="searchTerm" />
                                     </div>
 
                                     <div className="form-group">
@@ -33,12 +32,12 @@ var SearchBar = React.createClassName({
 
                                     <div className="form-group">
                                         <label for="startYear">Start Year (Optional):</label>
-                                        <input type="text" className="form-control" id="startYear">
+                                        <input type="text" className="form-control" id="startYear" />
                                     </div>
 
                                     <div className="form-group">
                                         <label for="endYear">End Year (Optional):</label>
-                                        <input type="text" className="form-control" id="endYear">
+                                        <input type="text" className="form-control" id="endYear" />
                                     </div>
 
                                     <button type="submit" className="btn btn-default" id="runSearch"><i className="fa fa-search"></i> Search</button>
