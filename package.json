@@ -1,0 +1,23 @@
+{
+  "name": "nytreact",
+  "version": "1.0.0",
+  "description": "Homework 15 for the Northwestern Coding Boot Camp.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack & node server",
+    "start": "node server",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-ashbeck/nytreact.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a-ashbeck/nytreact/issues"
+  },
+  "homepage": "https://github.com/a-ashbeck/nytreact#readme"
+}
