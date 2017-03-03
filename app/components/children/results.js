@@ -1,5 +1,4 @@
 var React = require("react");
-var SavedArticles = require("./savedArticles");
 
 var Results = React.createClass({
     clickSave: function (event) {
@@ -23,7 +22,12 @@ var Results = React.createClass({
                                     <p key={i}>{search.title}</p>
                                     <p key={i}>{search.date}</p>
                                     <p key={i}>{search.url}</p>
-                                    <button>Save</button>
+                                    <button
+                                        key={i}
+                                        onClick={this.clickSave}
+                                    >
+                                        Save
+                                    </button>
                                 );
                             })}
                         </div>
