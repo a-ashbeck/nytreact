@@ -64,7 +64,7 @@ var Main = React.createClass({
                     <div className="jumbotron" style="background-color: #20315A ; color: white;" >
                         <h1 className="text-center" > <strong > <i className="fa fa-newspaper-o" > </i> New York Times Search</strong></h1>
                     </div>
-                    <SearchBar setForm={ this.setForm }/> 
+                    <SearchBar setTerm={ this.setTerm }/> 
                     <Results results={ this.state.results }/> 
                     <SavedArticles savedArticles={ this.state.savedArticles }/> 
                 </div>
