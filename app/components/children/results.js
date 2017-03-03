@@ -17,7 +17,7 @@ var Results = React.createClass({
                         </div>
                         <div className="panel-body" id="resultsWell">
                             {/* Here we use a map function to loop through an array in JSX */}
-                            {this.props.results(function(search, i) {
+                            {this.props.results.map(function(search, i) {
                                 return (
                                     <p key={i}>{search.title}</p>
                                     <p key={i}>{search.date}</p>

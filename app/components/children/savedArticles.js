@@ -8,7 +8,7 @@ var SavedArticles = React.createClass({
                     <h3 className="panel-title"><strong><i className="fa fa-file-text-o"></i> Saved Articles</strong></h3>
                 </div>
                 <div className="panel-body" id="savedWell">
-                    {this.props.articles(function(article, i) {
+                    {this.props.articles.map(function(article, i) {
                         return (
                             <p key={i}>{article.title}</p>
                             <p key={i}>{article.date}</p>
