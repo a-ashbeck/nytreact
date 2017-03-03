@@ -7,19 +7,32 @@ var authKey = "b80327eafb814e47b56742e9cf7732c5";
 var helper = {
 
   // This function serves our purpose of running the query to geolocate.
-  runQuery: function(search) {
+  runQuery: function(term, numRecordsSelect, startYear, endYear) {
 
-    console.log(search);
+    console.log(term + " " + numRecordsSelect + " " + startYear + " " + endYear);
 
     // Figure out the geosearch
-    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=";
+    var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=";
+
+    var queryURL = queryURLBase + term;
+
+    // If the user provides a startYear -- the startYear will be included in the queryURL
+    if (parseInt(startYear)) {
+      queryURL = queryURL + "&begin_date=" + startYear + "0101";
+    }
+
+    // If the user provides a endYear -- the endYear will be included in the queryURL
+    if (parseInt(endYear)) {
+      queryURL = queryURL + "&end_date=" + endYear + "0101";
+    }
+
     return axios.get(queryURL).then(function(response) {
-      // If get get a result, return that result's formatted address property
+      // If get a result, return that result's formatted address property
       if (response.data.results[0]) {
-        return response.data.results[0].formatted;
+        return response.data.results[0];
       }
       // If we don't get any results, return an empty string
-      return "";
+      return "LOOKS LIKE THERE'S NOTHING HERE...";
     });
   },
 
@@ -29,8 +42,8 @@ var helper = {
   },
 
   // This function posts new searches to our database.
-  postSavedArticle: function(search) {
-    return axios.post("/api", { search: search });
+  postSavedArticle: function(article) {
+    return axios.post("/api", { article: article });
   }
 };
 
