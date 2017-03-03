@@ -1,80 +1,73 @@
 var React = require('react');
+
 var SearchBar = require('./searchBar');
 var Results = require('./results');
 var SavedArticles = require('./savedArticles');
-var axios = require('axios');
 
-var authKey = "b80327eafb814e47b56742e9cf7732c5";
-var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=";
+// Helper for making AJAX requests to our API
+var helpers = require("./utils/helpers");
 
 var Main = React.createClass({
-    // getInitialState: function() {
-    //     return {
-    //         searchTerm: '',
-    //         numberArticles: 5,
-    //         startYear: '',
-    //         endYear: '',
-    //         results: [],
-    //         savedArticles: []
-    //     }
-    // },
 
-    // componentDidMount: function() {
-    //   axios.get('/api/articles/').then(function(response) {
-    //     this.setState({ savedArticles: response.data });
-    //   }.bind(this));
-    // },
+    // Here we set a generic state associated with the number of clicks
+    // Note how we added in this history state variable
+    getInitialState: function() {
+        return { searchTerm: "", results: "", history: [] };
+    },
 
-    // handleUserInput: function(obj) {
-    //     this.setState(obj);
-    // },
+    // The moment the page renders get the History
+    componentDidMount: function() {
+        // Get the latest history.
+        helpers.getSavedArticles().then(function(response) {
+            console.log(response);
+            if (response !== this.state.history) {
+                console.log("History", response.data);
+                this.setState({ history: response.data });
+            }
+        }.bind(this));
+    },
 
-    // handleFormSubmit: function() {
-    //   var queryURL = queryURLBase + this.state.searchTerm;
-    //   if (parseInt(this.state.startYear)) {
-    //       queryURL = queryURL + "&begin_date=" + this.state.startYear + "0101";
-    //   }
+    // If the component changes (i.e. if a search is entered)...
+    componentDidUpdate: function() {
 
-    //   if (parseInt(this.state.endYear)) {
-    //       queryURL = queryURL + "&end_date=" + this.state.endYear + "0101";
-    //   }
+        // Run the query for the address
+        helpers.runQuery(this.state.searchTerm).then(function(data) {
+            if (data !== this.state.results) {
+                console.log("Address", data);
+                this.setState({ results: data });
 
-    //   axios.get(queryURL, function(NYTData) {
-    //       this.addArticles(NYTData, this.state.numberArticles);
-    //   }.bind(this));
-    // },
+                // After we've received the result... then post the search term to our history.
+                helpers.postArticle(this.state.searchTerm).then(function() {
+                    console.log("Updated!");
 
-    // addArticles: function(NYTData, numberOfArticles) {
-    //   var articles = [];
-    //   for (var i = 0; i < numberOfArticles; i++) {
-    //       var localObject = {};
-    //       localObject.id = i;
-    //       localObject.title = NYTData.response.docs[i].headline.main;
-    //       localObject.link = NYTData.response.docs[i].web_url;
-    //       localObject.date = NYTData.response.docs[i].pub_date;
-    //       localObject.sectionName = NYTData.response.docs[i].section_name;
+                    // After we've done the post... then get the updated history
+                    helpers.getSavedArticles().then(function(response) {
+                        console.log("Current History", response.data);
 
-    //       if(NYTData.response.docs[i].byline &&
-    //           NYTData.response.docs[i].byline.hasOwnProperty("original")) {
-    //           localObject.originalByline = NYTData.response.docs[i].byline.original;
-    //       }
-    //       articles.push(localObject)
-    //   }
-    //   this.setState({
-    //       results: articles
-    //   });
-    // },
+                        console.log("History", response.data);
+
+                        this.setState({ history: response.data });
+
+                    }.bind(this));
+                }.bind(this));
+            }
+        }.bind(this));
+    },
+    // This function allows childrens to update the parent.
+    setForm: function(form) {
+        this.setState({ searchForm: form });
+    },
 
     render: function() {
-        return (
+        return ( 
             <div>
-                <div class="container">
-                    <div class="jumbotron" style="background-color: #20315A ; color: white;">
-                        <h1 class="text-center"><strong><i class="fa fa-newspaper-o"></i> New York Times Search</strong></h1>
+                <div className="container" >
+                    <div className="jumbotron" style="background-color: #20315A ; color: white;" >
+                        <h1 className="text-center" > <strong > <i className="fa fa-newspaper-o" > </i> New York Times Search</strong></h1>
                     </div>
-                    <SearchBar searchBar={this.state.searchBar} />
-                    <Results results={ this.state.results } />
-                    <SavedArticles savedArticles={ this.state.savedArticles } />
+                    <SearchBar setForm={ this.state.searchBar }/> 
+                    <Results results={ this.state.results }/> 
+                    <SavedArticles savedArticles={ this.state.savedArticles }/> 
                 </div>
             </div>
         )

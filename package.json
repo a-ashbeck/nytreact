@@ -14,10 +14,27 @@
     "url": "git+https://github.com/a-ashbeck/nytreact.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alan Ashbeck",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/a-ashbeck/nytreact/issues"
   },
-  "homepage": "https://github.com/a-ashbeck/nytreact#readme"
+  "homepage": "https://github.com/a-ashbeck/nytreact#readme",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "body-parser": "^1.17.0",
+    "express": "^4.15.0",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.8.5",
+    "morgan": "^1.8.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "webpack": "^1.13.1"
+  }
 }
