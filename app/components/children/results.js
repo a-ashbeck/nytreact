@@ -17,22 +17,7 @@ var Results = React.createClass({
                                 <h3 className="panel-title"><strong><i className="fa fa-table"></i> Top Articles</strong></h3>
                             </div>
                             <div className="panel-body" id="resultsWell">
-                                {/* Here we use a map function to loop through an array in JSX */}
-                                {this.props.results(function(search, i) {
-                                    return (
-                                        <div>
-                                            <p key={i}>{search.title}</p>
-                                            <p key={i}>{search.date}</p>
-                                            <p key={i}>{search.url}</p>
-                                            <button
-                                                key={i}
-                                                onClick={this.clickSave}
-                                            >
-                                                Save
-                                            </button>
-                                        </div>
-                                    );
-                                })}
+                                {this.props.results}
                             </div>
                         </div>
                     </div>
@@ -43,3 +28,19 @@ var Results = React.createClass({
 });
 
 module.exports = Results;
+
+// .map(function(search, i) {
+//                                     return (
+//                                         <div>
+//                                             <p key={i}>{search.title}</p>
+//                                             <p key={i}>{search.date}</p>
+//                                             <p key={i}>{search.url}</p>
+//                                             <button
+//                                                 key={i}
+//                                                 onClick={this.clickSave}
+//                                             >
+//                                                 Save
+//                                             </button>
+//                                         </div>
+//                                     );
+//                                 })

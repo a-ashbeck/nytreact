@@ -5,12 +5,12 @@ var request = require('request');
 
 // Export app routes
 module.exports = function(app) {
-    app.get('/', function(req, res) {
+    app.get('*', function(req, res) {
         res.sendFile(__dirname + "/public/index.html");
     });
 
     // 
-    app.get('/api', function(req, res) {
+    app.get('/api/saved', function(req, res) {
         Article.find({}).exec(function(err, doc) {
             if (err) {
                 console.log(err);
@@ -21,7 +21,7 @@ module.exports = function(app) {
     });
 
     // This is the route used to save an article
-    app.post('/api', function(req, res) {
+    app.post('/api/saved', function(req, res) {
         Article.create({
             title: req.body.title,
             date: req.body.date,
@@ -30,6 +30,19 @@ module.exports = function(app) {
         function(err) {
             if (err) {
                 console.log(err);
+            }
+        });
+
+    });
+
+    app.delete('/api/saved', function(req, res) {
+        // Load the req.body.id into a variable for ease of use
+        var articleId = req.body.id;
+        // Remove the appropriate comments
+        Comment.remove({ _id: articleId }, function(err, article) {
+            if (err) {
+                // If error, send error
+                res.send(err);
             }
         });
 
