@@ -1,8 +1,8 @@
 var React = require('react');
 
-var SearchBar = require('./searchBar');
-var Results = require('./results');
-var SavedArticles = require('./savedArticles');
+var SearchBar = require('./children/searchBar');
+var Results = require('./children/results');
+var SavedArticles = require('./children/savedArticles');
 
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
@@ -72,7 +72,7 @@ var Main = React.createClass({
         return ( 
             <div>
                 <div className="container" >
-                    <div className="jumbotron" style="background-color: #20315A ; color: white;" >
+                    <div className="jumbotron" >
                         <h1 className="text-center" > <strong > <i className="fa fa-newspaper-o" > </i> New York Times Search</strong></h1>
                     </div>
                     <SearchBar

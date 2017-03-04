@@ -1,7 +1,7 @@
 var Results = require("./results");
 var React = require("react");
 
-var SearchBar = React.createClassName({
+var SearchBar = React.createClass({
 
     // Here we set a generic state associated with the text being searched for
     getInitialState: function() {
@@ -26,7 +26,7 @@ var SearchBar = React.createClassName({
         this.props.setStartYear(this.state.startYear);
         this.props.setEndYear(this.state.endYear);
         this.setState({ term: "", numRecordsSelect: 0, startYear: "", endYear: "" });
-  },
+    },
     render: function () {
         return (
             <div>
@@ -42,7 +42,7 @@ var SearchBar = React.createClassName({
                                 <form role="form">
 
                                     <div className="form-group">
-                                        <label for="search">Search Term:</label>
+                                        <label htmlFor="search">Search Term:</label>
                                         <input
                                             type="text"
                                             value={this.state.term}
@@ -53,7 +53,7 @@ var SearchBar = React.createClassName({
                                     </div>
 
                                     <div className="form-group">
-                                        <label for="pwd">Number of Records to Retrieve:</label>
+                                        <label htmlFor="pwd">Number of Records to Retrieve:</label>
                                         <select
                                             type="number"
                                             className="form-control"
@@ -61,14 +61,14 @@ var SearchBar = React.createClassName({
                                             id="numRecordsSelect"
                                             onChange={this.handleChange}
                                         >
-                                            <option value=1>1</option>
-                                            <option value=5 selected>5</option>
-                                            <option value=10>10</option>
+                                            <option value="1">1</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
                                         </select>             
                                     </div>
 
                                     <div className="form-group">
-                                        <label for="startYear">Start Year (Optional):</label>
+                                        <label htmlFor="startYear">Start Year (Optional):</label>
                                         <input
                                             type="text"
                                             value={this.state.numRecordsSelect}
@@ -79,7 +79,7 @@ var SearchBar = React.createClassName({
                                     </div>
 
                                     <div className="form-group">
-                                        <label for="endYear">End Year (Optional):</label>
+                                        <label htmlFor="endYear">End Year (Optional):</label>
                                         <input
                                             type="text"
                                             value={this.state.numRecordsSelect}

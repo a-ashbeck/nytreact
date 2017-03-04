@@ -8,28 +8,32 @@ var Results = React.createClass({
     },
     render: function () {
         return (
-            <div className="row">
-                <div className="col-sm-12">
-                    <br />
-                    <div className="panel panel-primary">
-                        <div className="panel-heading">
-                            <h3 className="panel-title"><strong><i className="fa fa-table"></i> Top Articles</strong></h3>
-                        </div>
-                        <div className="panel-body" id="resultsWell">
-                            {/* Here we use a map function to loop through an array in JSX */}
-                            {this.props.results.map(function(search, i) {
-                                return (
-                                    <p key={i}>{search.title}</p>
-                                    <p key={i}>{search.date}</p>
-                                    <p key={i}>{search.url}</p>
-                                    <button
-                                        key={i}
-                                        onClick={this.clickSave}
-                                    >
-                                        Save
-                                    </button>
-                                );
-                            })}
+            <div>
+                <div className="row">
+                    <div className="col-sm-12">
+                        <br />
+                        <div className="panel panel-primary">
+                            <div className="panel-heading">
+                                <h3 className="panel-title"><strong><i className="fa fa-table"></i> Top Articles</strong></h3>
+                            </div>
+                            <div className="panel-body" id="resultsWell">
+                                {/* Here we use a map function to loop through an array in JSX */}
+                                {this.props.results(function(search, i) {
+                                    return (
+                                        <div>
+                                            <p key={i}>{search.title}</p>
+                                            <p key={i}>{search.date}</p>
+                                            <p key={i}>{search.url}</p>
+                                            <button
+                                                key={i}
+                                                onClick={this.clickSave}
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>

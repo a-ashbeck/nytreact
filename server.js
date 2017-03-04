@@ -28,7 +28,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 
 // Database configuration with mongoose
-mongoose.connect('');
+mongoose.connect('mongodb://heroku_psf03msb:7upgn5r583o9u8gvkpdmu47jpa@ds119020.mlab.com:19020/heroku_psf03msb');
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -47,5 +47,5 @@ app.listen(PORT, function() {
 });
 
 // Require routes from controller
-require('./controllers/apps_controller.js')(app);
+require('./controllers/articles_controller.js')(app);
 
