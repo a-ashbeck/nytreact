@@ -4,8 +4,12 @@ var SearchBar = require('./children/searchBar');
 var Results = require('./children/results');
 var SavedArticles = require('./children/savedArticles');
 
+var axios = require("axios");
+
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
+var authKey = "b80327eafb814e47b56742e9cf7732c5";
+var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=";
 
 var Main = React.createClass({
 
@@ -25,16 +29,16 @@ var Main = React.createClass({
         this.setState(object);
     },
     // The moment the page renders get the Articles
-    componentDidMount: function() {
-        // Get the latest articles.
-        helpers.getSavedArticles().then(function(response) {
-            console.log(response);
-            if (response !== this.state.articles) {
-                console.log("Articles", response.data);
-                this.setState({ articles: response.data });
-            }
-        }.bind(this));
-    },
+    // componentDidMount: function() {
+    //     // Get the latest articles.
+    //     helpers.getSavedArticles().then(function(response) {
+    //         console.log(response);
+    //         if (response !== this.state.articles) {
+    //             console.log("Articles", response.data);
+    //             this.setState({ articles: response.data });
+    //         }
+    //     }.bind(this));
+    // },
 
     // If the component changes (i.e. if a search is entered)...
     // handleFormSubmit: function() {
@@ -63,7 +67,7 @@ var Main = React.createClass({
     //     }.bind(this));
     // },
     handleFormSubmit: function() {
-      var queryURL = queryURLBase + this.state.searchTerm;
+      var queryURL = queryURLBase + this.state.term;
       if (parseInt(this.state.startYear)) {
           queryURL = queryURL + "&begin_date=" + this.state.startYear + "0101";
       }
@@ -72,21 +76,20 @@ var Main = React.createClass({
           queryURL = queryURL + "&end_date=" + this.state.endYear + "0101";
       }
 
-      axios.get(queryURL).then(function(NYTData) {
-          this.addArticles(NYTData, this.state.numberArticles);
+      axios.get(queryURL).then(function(dataReturned) {
+          this.addArticles(dataReturned, this.state.numRecordsSelect);
       }.bind(this));
     },
 
-    addArticles: function(NYTData, numberOfArticles) {
+    addArticles: function(dataReturned, numRecordsSelect) {
         var articles = [];
-        for (var i = 0; i < numberOfArticles; i++) {
-            var article = NYTData.data.response.docs[i];
+        for (var i = 0; i < numRecordsSelect; i++) {
+            var article = dataReturned.data.response.docs[i];
             var localObject = {};
             localObject.id = i;
             localObject.title = article.headline.main;
             localObject.link = article.web_url;
             localObject.date = article.pub_date;
-            localObject.sectionName = article.section_name;
 
             if(article.byline && article.byline.hasOwnProperty("original")) {
                 localObject.originalByline = article.byline.original;
@@ -94,8 +97,9 @@ var Main = React.createClass({
             articles.push(localObject)
         }
         this.setState({
-            topArticles: articles
+            results: articles
         });
+        console.log(articles)
     },
     // // This function allows childrens to update the parent.
     // setTerm: function(term) {

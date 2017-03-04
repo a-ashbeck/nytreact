@@ -17,7 +17,19 @@ var Results = React.createClass({
                                 <h3 className="panel-title"><strong><i className="fa fa-table"></i> Top Articles</strong></h3>
                             </div>
                             <div className="panel-body" id="resultsWell">
-                                {this.props.results}
+                                {this.props.results.map(function(search, i) {
+                                    return (
+                                        <div>
+                                            <a id={search.id} href={search.link} key={i}>{search.title} --- {search.date}</a>
+                                            <button
+                                                key={i}
+                                                // onClick={this.clickSave}
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
