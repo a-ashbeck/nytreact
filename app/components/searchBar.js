@@ -1,19 +1,16 @@
+// Require dependencies
 var Results = require("./results");
 var React = require("react");
 
+// Define SearchBar class
 var SearchBar = React.createClass({
-
-    // Here we set a generic state associated with the text being searched for
-    // getInitialState: function() {
-    //     return { term: "", numRecordsSelect: 0, startYear: "", endYear: "" };
-    // },
     // This function will respond to the user input
     handleChange: function(event) {
         // Here we create syntax to capture any change in text to the query terms (pre-search).
-        var newState = {};
-
-        newState[event.target.name] = event.target.value;
-        this.props.onInput(newState);
+        var name = event.target.name;
+        var obj = {};
+        obj[name] = event.target.value;
+        this.props.onInput(obj);
     },
     // When a user submits...
     handleSubmit: function(event) {
@@ -24,6 +21,7 @@ var SearchBar = React.createClass({
         // Set the parent to have the search term
         this.props.onFormSubmit();
     },
+    // Render the component JSX
     render: function () {
         return (
             <div>
@@ -32,7 +30,11 @@ var SearchBar = React.createClass({
                     <br />
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title"><strong><i className="fa fa-list-alt"></i> Search Parameters</strong></h3>
+                                <h3 className="panel-title">
+                                    <strong>
+                                        <i className="fa fa-list-alt"></i> Search Parameters
+                                    </strong>
+                                </h3>
                             </div>
                             <div className="panel-body">
 
@@ -122,4 +124,5 @@ var SearchBar = React.createClass({
     }
 });
 
+// Export the component
 module.exports = SearchBar;

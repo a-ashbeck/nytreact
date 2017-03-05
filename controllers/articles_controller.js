@@ -5,11 +5,12 @@ var request = require('request');
 
 // Export app routes
 module.exports = function(app) {
-    app.get('*', function(req, res) {
-        res.sendFile(__dirname + "/public/index.html");
+    // HTML route for /
+    app.get('/', function(req, res) {
+        res.send('index.html');
     });
 
-    // 
+    // API route for getting saved articles
     app.get('/api/saved', function(req, res) {
         Article.find({}).exec(function(err, doc) {
             if (err) {
@@ -20,7 +21,7 @@ module.exports = function(app) {
         });
     });
 
-    // This is the route used to save an article
+    // API route used to save an article
     app.post('/api/saved', function(req, res) {
         Article.create({
             title: req.body.title,
@@ -35,13 +36,11 @@ module.exports = function(app) {
 
     });
 
-    app.delete('/api/saved', function(req, res) {
-        // Load the req.body.id into a variable for ease of use
-        var articleId = req.body.id;
-        // Remove the appropriate comments
-        Comment.remove({ _id: articleId }, function(err, article) {
+    // API route for deleting a saved article
+    app.delete('/api/saved/:id', function(req, res) {
+        var articleId = req.params.id;
+        Article.remove({ _id: articleId }, function(err, article) {
             if (err) {
-                // If error, send error
                 res.send(err);
             }
         });

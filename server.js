@@ -48,4 +48,3 @@ app.listen(PORT, function() {
 
 // Require routes from controller
 require('./controllers/articles_controller.js')(app);
-
