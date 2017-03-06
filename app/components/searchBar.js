@@ -105,15 +105,6 @@ var SearchBar = React.createClass({
                                         <i className="fa fa-search"></i> 
                                         Search
                                     </button>
-                                    <button
-                                        type="button"
-                                        className="btn btn-default"
-                                        id="clearAll"
-                                    >
-                                        <i className="fa fa-trash"></i>
-                                         Clear Results
-                                    </button>
-
                                 </form>
                             </div>
                         </div>

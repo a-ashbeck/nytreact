@@ -1,15 +1,11 @@
 // Require dependencies
 var React = require('react');
+var axios = require("axios");
 
 // Require top level components
 var SearchBar = require('./searchBar.js');
 var Results = require('./results.js');
 var SavedArticles = require('./savedArticles.js');
-
-var axios = require("axios");
-
-// Helper for making AJAX requests to our API
-var helpers = require("./utils/helpers");
 
 // NYT authkey and query string
 var authKey = "b80327eafb814e47b56742e9cf7732c5";
