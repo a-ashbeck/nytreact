@@ -75,6 +75,9 @@ var Main = React.createClass({
             results: articles
         });
     },
+    handleClearResults: function() {
+        this.setState({ results: [] });
+    },
     // Saves the selected result
     handleArticleSave: function(article) {
         var newArticle = {
@@ -119,6 +122,9 @@ var Main = React.createClass({
                         onFormSubmit={function() {
                             this.handleFormSubmit();
                         }.bind(this)}
+                        onClearResults={ function() {
+                            this.handleClearResults()
+                        }.bind(this) }
                     /> 
                     <Results 
                         results={ this.state.results }

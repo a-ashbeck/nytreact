@@ -21,6 +21,10 @@ var SearchBar = React.createClass({
         // Set the parent to have the search term
         this.props.onFormSubmit();
     },
+    // Clears the results when clicked
+    clickClearResults: function() {
+        this.props.onClearResults();
+    },
     // Render the component JSX
     render: function () {
         return (
@@ -105,6 +109,16 @@ var SearchBar = React.createClass({
                                         <i className="fa fa-search"></i> 
                                         Search
                                     </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-default"
+                                        id="clearAll"
+                                        onClick={this.clickClearResults}
+                                    >
+                                        <i className="fa fa-trash"></i>
+                                         Clear Results
+                                    </button>
+
                                 </form>
                             </div>
                         </div>
