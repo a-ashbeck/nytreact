@@ -75,6 +75,7 @@ var Main = React.createClass({
             results: articles
         });
     },
+    // Changes the state of results if the clear button is pressed
     handleClearResults: function() {
         this.setState({ results: [] });
     },
